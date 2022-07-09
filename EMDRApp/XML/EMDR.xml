@@ -1,0 +1,8 @@
+<root Name="EMDR" Time="7/7/2022 3:37:02 PM">
+  <Settings>
+    <LEDs Speed="50" SpeedCoefficient="90" SpeedMultiplier=".6" LEDColor="Aquamarine" NumberOfLeds="33" NumberOfLedControls="100" FadeinMSecs="30" FadeoutMSecs="3" NumberPerGroup="3" SpeedIncrement="10" SlowestMsecs="3000" Scale="1" />
+  </Settings>
+  <Settings Defaults="true">
+    <LEDs Speed="50" SpeedCoefficient="90" SpeedMultiplier=".6" LEDColor="Aquamarine" NumberOfLeds="33" NumberOfLedControls="100" FadeinMSecs="30" FadeoutMSecs="3" NumberPerGroup="3" SpeedIncrement="10" SlowestMsecs="3000" Scale="1" />
+  </Settings>
+</root>

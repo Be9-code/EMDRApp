@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="EMDRApp.Controls.EMDRLedControl"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+		xmlns:Converters="clr-namespace:EMDRApp.Converters"
+		mc:Ignorable="d" 
+        MinWidth="40"
+		d:DesignHeight="32" d:DesignWidth="40" 
+		Background="Black" Foreground="White"
+		DataContext="{Binding}" 
+		>
+
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="ControlsDictionary.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+			<!--<Converters:IntToStringConverter x:Key="QuantityIntToStringConverter"/>-->
+            <Converters:ColorStringToColorBrushConverter x:Key="ColorStringToColorBrushConverter" />
+
+            <Storyboard x:Name="EMDRDotAnimation" x:Key="EMDRDot_Animation" 
+					TargetName="EMDRDot" 
+					RepeatBehavior="Forever" AutoReverse="True" SpeedRatio="1">
+                <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" From="0.1" To="1.0" 
+											Duration="0:0:0.5" />
+                <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" From="1.0" To="0.1" 
+											BeginTime="0:0:1" 
+											Duration="0:0:0.75" 
+											/>
+                <!--<ColorAnimation 
+					Storyboard.TargetName="PMArmed" 
+					Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+					From="Black" To="Red" Duration="0:0:1.5"
+					RepeatBehavior="Forever" AutoReverse="True"/>-->
+
+                <!--<DoubleAnimation Storyboard.TargetProperty="Opacity" 
+						Storyboard.TargetName="PMArmed.Background"
+						Duration="0:0:1" From="0" To="100" BeginTime="0:0:7" />-->
+            </Storyboard>
+
+        </ResourceDictionary>
+	</UserControl.Resources>
+
+    <Grid x:Name="EMDRDotGrid"
+		Background="Black"
+        >
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+
+        <Border x:Name="EMDRDotBorder1" CornerRadius="12" 
+                Background="{Binding Path=LEDColor, Mode=OneWay,
+							Converter={StaticResource ColorStringToColorBrushConverter}}"
+ 				Width="20"
+				Height="20"
+                >
+                <Border.Effect>
+                    <BlurEffect Radius="40"/>
+                </Border.Effect>
+        </Border>
+        <Border x:Name="EMDRDotBorder2" CornerRadius="10" 
+				Background="{Binding Path=LEDColor, Mode=OneWay,
+							Converter={StaticResource ColorStringToColorBrushConverter}}"
+ 				Width="22"
+				Height="22"
+                >
+                <Border.Effect>
+                    <BlurEffect Radius="30"/>
+                </Border.Effect>
+        </Border>
+            
+		<Canvas>
+                
+            <Ellipse x:Name="EMDRDot"
+						Width="20"
+						Height="20"
+						Fill="{Binding Path=LEDColor, Mode=OneWay,
+						Converter={StaticResource ColorStringToColorBrushConverter}}"
+						DataContext="{Binding}" 
+                        >
+						<!--<Ellipse.Effect>
+							<DropShadowEffect BlurRadius="50"
+								ShadowDepth="0"
+								Color="{Binding Path=LEDColor, Mode=OneWay,
+								Converter={StaticResource ColorStringToColorBrushConverter}}"
+								Opacity="1"/>
+						</Ellipse.Effect>-->
+
+					</Ellipse>
+            </Canvas>
+
+            <!--<Image x:Name="EMDRDot" 
+						Height="14" Width="17" HorizontalAlignment="Center" Margin="2,2,0,0" 
+						Stretch="Fill" VerticalAlignment="Top" 
+						Source="/EMDRApp;component/Images/BlueMirrorDot.png" 
+						>
+                <Image.Effect>
+                    <DropShadowEffect BlurRadius="50"
+                          ShadowDepth="0"
+                          Color="Blue" 
+                          Opacity=".5"/>
+                </Image.Effect>
+            </Image>-->
+    </Grid>
+
+</UserControl>

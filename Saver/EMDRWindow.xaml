@@ -1,0 +1,311 @@
+﻿<Window x:Class="EMDRApp.Windows.EMDRWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpfx="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+		xmlns:EMDRControls="clr-namespace:EMDRApp.Controls"
+		xmlns:Converters="clr-namespace:EMDRApp.Converters"
+        mc:Ignorable="d"
+        Title="EMDR"
+ 		Height="80" Width="500"
+		Left="400" Top="10"
+		Background="Black" Foreground="White" 
+        WindowStyle="ToolWindow"
+        WindowStartupLocation="Manual"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        KeyDown="OnWindow_KeyDown"
+        >
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="WindowsDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Converters:DoubleToFixedStringConverter x:Key="DoubleToFixedStringConverter"/>
+            <Converters:ColorStringToColorBrushConverter x:Key="ColorStringToColorBrushConverter" />
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        
+        <!--<Grid x:Name="EMDRImagesGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid HorizontalAlignment="Center" Grid.Row="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+            </Grid>
+        </Grid>-->
+
+        <Grid x:Name="EMDRControlsGrid" HorizontalAlignment="Center" Margin="0,3,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid HorizontalAlignment="Center" Margin="0,3,0,0" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Border x:Name="SpeedSliderBorder" Grid.Row="0" Grid.Column="0"
+							BorderBrush="LightBlue" BorderThickness="1"
+							VerticalAlignment="Center" Margin="0,0,0,0">
+
+                    <Grid Margin="0,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Slider x:Name="SpeedSlider" Grid.Row="0"
+									Width="125" Height="Auto" Value="50" 
+									Orientation="Horizontal" HorizontalAlignment="Center" 
+									IsSnapToTickEnabled="True" Maximum="100" 
+									TickPlacement="BottomRight" 
+									ToolTip="PLayback position"
+									AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="0" 
+									Ticks="10, 20, 30, 40, 50, 60, 70, 80, 90"
+									ValueChanged="SpeedSlider_ValueChanged"
+                                    MouseLeftButtonUp="SpeedSlider_MouseLeftButtonUp"
+									>
+                            <Slider.Resources>
+                                <Style TargetType="ToolTip" BasedOn="{StaticResource {x:Type ToolTip}}">
+                                    <Setter Property="OverridesDefaultStyle" Value="true" />
+                                    <Setter Property="Foreground" Value="White" />
+                                </Style>
+                            </Slider.Resources>
+                        </Slider>
+                    </Grid>
+
+                </Border>
+
+                <Border x:Name="EMDRButtonsBorder" Grid.Row="0" Grid.Column="1"
+							BorderBrush="LightBlue" BorderThickness="1"
+							VerticalAlignment="Center" Margin="0,0,0,0">
+
+                    <Grid Margin="0,2,0,5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button Name="btnEMDRPlay" Content=" Play " Margin="5,1" Padding="2" Grid.Column="0" 
+									Style="{StaticResource RoundedButtonStyle1}"
+                                    HorizontalAlignment="Center"
+									Click="btnEMDRPlay_Click"
+									/>
+                        <Button Name="btnEMDRPause" Content=" Pause " Margin="5,0" Grid.Column="1"
+									Style="{StaticResource RoundedButtonStyle1}"
+                                    HorizontalAlignment="Center"
+									Click="btnEMDRPause_Click"
+									/>
+                        <Button Name="btnEMDRStop" Content=" Stop " Margin="5,0" Grid.Column="2"
+									Style="{StaticResource RoundedButtonStyle1}"
+                                    HorizontalAlignment="Center"
+									Click="btnEMDRStop_Click"
+									/>
+                    </Grid>
+
+                </Border>
+            </Grid>
+
+            <Grid HorizontalAlignment="Center" Margin="10,7,0,0" Grid.Row="0" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button Name="btnEMDRShow" Content=" Show " Width="70" Margin="5,1" Padding="2" Grid.Column="0" 
+						Style="{StaticResource RoundedButtonStyle1}"
+                        HorizontalAlignment="Center"
+                        IsDefault="True"
+						Click="btnEMDRShow_Click"
+						/>
+
+                <Button Name="btnEMDRSettings" Content="Settings" Width="70"
+                        Margin="8,1" Padding="2" Grid.Column="1" 
+						Style="{StaticResource RoundedButtonStyle1}"
+                        HorizontalAlignment="Center"
+                        IsDefault="True"
+						Click="btnEMDRSettings_Click"
+						/>
+
+            </Grid>
+            
+        </Grid>
+
+
+        <Popup x:Name="EMDRSettingsPopup"
+			Placement="Center"
+			VerticalOffset="70"
+			HorizontalOffset="10"
+			PlacementTarget="{Binding ElementName=EMDRControlsGrid}"
+			HorizontalAlignment="Center" VerticalAlignment="Top"
+			Height="Auto" IsOpen="False" 
+			KeyDown="EMDRSettingsPopup_KeyDown" 
+			Closed="EMDRSettingsPopup_Closed" 
+			MouseRightButtonUp="EMDRSettingsPopup_MouseRightButtonUp" 
+			>
+
+            <Grid Width="Auto" 
+			    MouseRightButtonUp="EMDRSettingsPopup_MouseRightButtonUp" 
+                >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Grid Grid.Row="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+						Text="# LEDs"
+						TextAlignment="Left"
+						Margin="0,0,0,0" Width="60" Height="20"
+						Padding="0,3,0,0"
+						FontFamily="Arial" FontSize="10" FontStretch="Expanded" 
+						FontWeight="Normal" 
+						HorizontalAlignment="Center" VerticalAlignment="Top" 
+						Background="Transparent" Foreground="White"
+						ToolTip=""
+			            MouseRightButtonUp="EMDRSettingsPopup_MouseRightButtonUp" 
+						/>
+
+                    <TextBlock Grid.Column="1"
+						Text="{Binding Path=NumberOfLeds}"
+                        DataContext="{Binding}"
+						TextAlignment="Center"
+						Margin="0,2,0,0" Width="60" Height="20"
+						Padding="0,3,0,0"
+						FontFamily="Arial" FontSize="10" FontStretch="Expanded" 
+						FontWeight="Normal" 
+						HorizontalAlignment="Right" VerticalAlignment="Top" 
+						Background="Transparent" Foreground="White"
+						ToolTip=""
+						MouseWheel="NumberOfLeds_MouseWheel" 
+			            MouseRightButtonUp="EMDRSettingsPopup_MouseRightButtonUp" 
+						/>
+
+                    <Grid Margin="0,2,0,0"  Grid.Column="2">
+		                <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+		                <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+		                </Grid.ColumnDefinitions>
+
+                        <EMDRControls:EMDRLedControl x:Name="EMDRDot" 
+                            DataContext="{Binding}"
+                            MouseLeftButtonDown="OnLEDColorMouseDown"
+                            />
+                    </Grid>
+
+                    <Grid Grid.Row="1" Grid.Column="1">
+                            <wpfx:ColorPicker x:Name="ColorPicker" Height="30" 
+					            DisplayColorAndName="True" Visibility="Collapsed"
+					            Margin="2,2,0,0" SelectedColorChanged="ColorPicker_SelectedColorChanged" 
+			                    MouseRightButtonUp="ColorPicker_MouseRightButtonUp" 
+                                />
+                    </Grid>
+
+                <!--<TextBox Name="IncrementAmount" Height="20" Grid.Column="0"
+						Margin="5,0,0,5"
+						Background="Black" Foreground="LightBlue"
+						MouseWheel="IncrementAmount_MouseWheel" 
+						>
+                    </TextBox>-->
+                    <!--<Button Content="Done" Width="40" Height="20" Grid.Column="1"
+						Style="{StaticResource RoundedButtonStyle1}"
+						Margin="1,0,0,5"
+						Click="OnScaleIncrementAmountDone"
+						/>-->
+
+                    <Button Name="btnEMDRSaveSettings" Content=" Save " Width="70" Margin="5,1" Padding="2" Grid.Column="0" 
+						Style="{StaticResource RoundedButtonStyle1}"
+                        HorizontalAlignment="Center"
+						Click="btnEMDRSaveSettings_Click"
+			            MouseRightButtonUp="EMDRSettingsPopup_MouseRightButtonUp" 
+						/>
+
+                </Grid>
+
+                <Border x:Name="ScaleBorder" Grid.Row="1" Grid.Column="0"
+					BorderBrush="LightBlue" BorderThickness="1"
+					VerticalAlignment="Center" Margin="0,0,0,0">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"
+								Text="Scale 1 to 2"
+								TextAlignment="Center"
+								Margin="4,0,0,0" Width="60" Height="20"
+								Padding="0,3,0,0"
+								FontFamily="Arial" FontSize="10" FontStretch="Expanded" 
+								FontWeight="Normal" 
+								HorizontalAlignment="Center" VerticalAlignment="Top" 
+								Background="Transparent" Foreground="White"
+								ToolTip="{Binding Path=Scale,
+								Converter={StaticResource DoubleToFixedStringConverter}}"
+			                    MouseRightButtonUp="EMDRSettingsPopup_MouseRightButtonUp" 
+								/>
+
+                        </Grid>
+
+                        <Slider x:Name="ScaleSlider" Grid.Row="1"
+							Width="150" Value="1" 
+							Orientation="Horizontal" HorizontalAlignment="Left" 
+							IsSnapToTickEnabled="True" Maximum="2" TickPlacement="BottomRight" 
+							AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="2" 
+							Ticks="0, .25, .5, 1, 1.25, 1.5, 2"
+							ValueChanged="ScaleSlider_ValueChanged"
+			                MouseRightButtonUp="EMDRSettingsPopup_MouseRightButtonUp" 
+							/>
+                    </Grid>
+
+                </Border>
+
+            </Grid>
+        </Popup>
+
+    </Grid>
+</Window>

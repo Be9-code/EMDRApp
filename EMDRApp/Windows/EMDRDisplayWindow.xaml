@@ -1,0 +1,51 @@
+﻿<Window x:Class="EMDRApp.Windows.EMDRDisplayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:EMDRControls="clr-namespace:EMDRApp.Controls"
+        mc:Ignorable="d"
+        Title=""
+ 		Height="60" Width="800"
+ 		Left="120" Top="200"
+        ShowInTaskbar="False"
+        AllowsTransparency="True"
+		Background="Transparent" Foreground="White" 
+        WindowStyle="None" 
+        MouseDown="Window_MouseDown" ResizeMode="NoResize"
+		ToolTip="Use Escape to close this window, to move the window: drag the window, Space bar to toggle pause"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        KeyDown="OnWindow_KeyDown"
+        >
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="WindowsDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border BorderBrush="Black"
+            BorderThickness="1.5"
+            CornerRadius="15"
+            Background="Black"
+             >
+        <Grid Margin="15,0,0,0">
+
+            <Grid x:Name="EMDRImagesGrid"
+                HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <EMDRControls:EMDRLedsBarControl x:Name="EMDRLedsBar" 
+						HorizontalAlignment="Center" VerticalAlignment="Center" 
+                        />
+
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>
